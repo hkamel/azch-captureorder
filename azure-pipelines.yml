@@ -65,7 +65,8 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
           - task: replacetokens@3
             inputs:
-              targetFiles: '$(System.ArtifactsDirectory)/manifests/deployment.yaml'
+              rootDirectory: '$(System.ArtifactsDirectory)/manifests/'
+              targetFiles: 'deployment.yaml'
               encoding: 'auto'
               writeBOM: true
               actionOnMissing: 'warn'
