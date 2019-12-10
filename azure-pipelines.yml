@@ -9,6 +9,12 @@ variables:
 
   - name: tag
     value: '$(Build.BuildId)'
+   
+  - name: acrName
+    value: 'akswsacr'
+  
+  - name: acrImageVersion
+    value: 'latest'
 
 stages:
 - stage: Build
@@ -57,7 +63,15 @@ stages:
             inputs:
               artifactName: 'manifests'
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
-
+          - task: replacetokens@3
+            inputs:
+              targetFiles: '$(System.ArtifactsDirectory)/manifests/deployment.yaml'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              tokenPrefix: '__'
+              tokenSuffix: '__'
           - task: KubernetesManifest@0
             displayName: Create secret for MongoDB
             inputs:
