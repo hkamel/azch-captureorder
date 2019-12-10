@@ -10,11 +10,8 @@ variables:
   - name: tag
     value: '$(Build.BuildId)'
    
-  - name: ACRNAME
+  - name: ACR
     value: 'akswsacr'
-  
-  - name: IMAGEVERSION
-    value: 'latest'
 
 stages:
 - stage: Build
