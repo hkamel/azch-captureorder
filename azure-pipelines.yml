@@ -63,7 +63,7 @@ stages:
             inputs:
               artifactName: 'manifests'
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
-          - task: replacetokens@3
+          - task: qetza.replacetokens.replacetokens-task.replacetokens@3
             inputs:
               rootDirectory: '$(System.ArtifactsDirectory)/manifests/'
               targetFiles: 'deployment.yaml'
