@@ -64,11 +64,10 @@ stages:
               artifactName: 'manifests'
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
           - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+            displayName: 'Replace tokens in manifest file'
             inputs:
               rootDirectory: '$(System.ArtifactsDirectory)/manifests/'
-              targetFiles: 'deployment.yaml'             
-              actionOnMissing: 'warn'
-              keepToken: false
+              targetFiles: 'deployment.yaml'
               escapeType: none
               tokenPrefix: '__'
               tokenSuffix: '__'
@@ -84,7 +83,8 @@ stages:
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
-              action: deploy
-              namespace: $(k8sNamespace)
-              manifests: $(System.ArtifactsDirectory)/manifests/*
+              action: 'deploy'
+              kubernetesServiceConnection: 'aksworkshop-aks-workshop-01-dev-1575976325353'
+              namespace: '$(k8sNamespace)'
+              manifests: '$(System.ArtifactsDirectory)/manifests/*'
               containers: '$(acrEndpoint)/captureorder:$(tag)'
