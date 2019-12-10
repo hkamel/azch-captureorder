@@ -66,11 +66,10 @@ stages:
           - task: qetza.replacetokens.replacetokens-task.replacetokens@3
             inputs:
               rootDirectory: '$(System.ArtifactsDirectory)/manifests/'
-              targetFiles: 'deployment.yaml'
-              encoding: 'auto'
-              writeBOM: true
+              targetFiles: 'deployment.yaml'             
               actionOnMissing: 'warn'
               keepToken: false
+              escapeType: none
               tokenPrefix: '__'
               tokenSuffix: '__'
           - task: KubernetesManifest@0
